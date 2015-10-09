@@ -1,1 +1,1 @@
-# azureautomation
+# Repository of Azure Automation Scripts
