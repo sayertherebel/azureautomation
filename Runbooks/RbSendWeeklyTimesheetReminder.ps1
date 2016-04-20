@@ -25,7 +25,27 @@ catch {
 "Logged in."
 	
 Set-AzureRmContext -SubscriptionId $servicePrincipalConnection.SubscriptionId
+$recips = @("jamie.sayer@silversands.co.uk", "steve.ianson@silversands.co.uk")
+$subject = "IMPORTANT Timesheet reminder"
+$body = @"
+All
+
+
+Weekly reminder..........
+ 
+Please ensure your timesheets are up to date. 
+
+
+Thanks
+
+
+Simon
+"@
+
+$CC = @("jamie.stockton@silversands.co.uk")	
 
 Start-AzureRmAutomationRunbook -Name "Send-MailMessage" `
- -Parameters @{"To"="'jamie.sayer@silversands.co.uk','steve.ianson@silversands.co.uk'"; "From"="simon.robinson@silversands.co.uk"; "Server"="silversmtp.silversands.co.uk"; "Subject"="Test massage"; "Body"="This is a test massage."} `
+ -Parameters @{"To"=$recips; "CC"=$CC; "From"="simon.robinson@silversands.co.uk"; "Server"="silversmtp.silversands.co.uk"; "Subject"=$subject; "Body"=$body} `
  -AutomationAccountName "OMSAutomation" -RunOn "HybridRunbookWorkersGroup" -ResourceGroupName "SSOMS"
+	 
+	 
