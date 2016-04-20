@@ -14,8 +14,8 @@
    Required 
    Message subject
 .NOTES
-   AUTHOR: Jamie Sayer, based on a Azure Compute Team sample
-   LASTEDIT: 19/04/2016
+   AUTHOR: Jamie Sayer
+   LASTEDIT: 20/04/2016
 #>
 
 param (
