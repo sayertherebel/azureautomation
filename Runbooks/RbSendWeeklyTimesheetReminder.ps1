@@ -25,7 +25,7 @@ catch {
 "Logged in."
 	
 Set-AzureRmContext -SubscriptionId $servicePrincipalConnection.SubscriptionId
-$recips = @("jamie.sayer@silversands.co.uk", "steve.ianson@silversands.co.uk")
+$recips = @("team-projects@silversands.co.uk", "team-infrastructure@silversands.co.uk", "Team-Sharepoint&Development@silversands.co.uk")
 $subject = "IMPORTANT Timesheet reminder"
 $body = @"
 All
@@ -42,7 +42,7 @@ Thanks
 Simon
 "@
 
-$CC = @("jamie.stockton@silversands.co.uk")	
+$CC = @("andy.petty@silversands.co.uk","james.mallalieu@silversands.co.uk")	
 
 Start-AzureRmAutomationRunbook -Name "Send-MailMessage" `
  -Parameters @{"To"=$recips; "CC"=$CC; "From"="simon.robinson@silversands.co.uk"; "Server"="silversmtp.silversands.co.uk"; "Subject"=$subject; "Body"=$body} `
