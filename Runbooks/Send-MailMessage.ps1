@@ -3,7 +3,8 @@
   Sends an email message
 .DESCRIPTION
   Wraps the Send-MailMessage PowerShell command, passing the passed parameters	
-.PARAMETER To 
+.PARAMETER To
+.PARAMETER CC  
 .PARAMETER From
 .PARAMETER Subject 
 .PARAMETER Body
@@ -16,19 +17,21 @@
 
 param (
 	[parameter(Mandatory = $true)]
-	[object]$To,
+	[string[]]$To,
+	[parameter(Mandatory = $false)]
+	[string[]]$CC,
 	[parameter(Mandatory = $true)]
-	[object]$From,
+	[string]$From,
 	[parameter(Mandatory = $true)]
-	[object]$Subject,
+	[string]$Subject,
 	[parameter(Mandatory = $true)]
-	[object]$Body,
+	[string]$Body,
 	[parameter(Mandatory = $true)]
-	[object]$Server
+	[string]$Server
 
 )
 	
 		
-Send-MailMessage -To $To -Subject $Subject -Body $Body -SmtpServer $Server -From $From
+Send-MailMessage -To $To -Subject $Subject -Body $Body -SmtpServer $Server -From $From -CC $CC
    		
 		
