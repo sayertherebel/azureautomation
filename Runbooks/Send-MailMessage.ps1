@@ -9,6 +9,7 @@
 .PARAMETER Subject 
 .PARAMETER Body
 .PARAMETER Server
+.PARAMETER AttachmentPaths
 .NOTES
    AUTHOR: Jamie Sayer
    LASTEDIT: 20/04/2016
@@ -26,12 +27,14 @@ param (
 	[string]$Subject,
 	[parameter(Mandatory = $true)]
 	[string]$Body,
+	[parameter(Mandatory = $false)]
+	[string[]]$AttachmentPaths,
 	[parameter(Mandatory = $true)]
 	[string]$Server
 
 )
 	
 		
-Send-MailMessage -To $To -Subject $Subject -Body $Body -SmtpServer $Server -From $From -CC $CC
+Send-MailMessage -To $To -Subject $Subject -Body $Body -SmtpServer $Server -From $From -CC $CC -Attachments $AttachmentPaths
    		
 		
