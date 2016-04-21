@@ -34,7 +34,7 @@ $attachments = @("D:\VmwareSnapshotReport\snapshot_Query.csv")
 $CC = @("jamie.sayer@silversands.co.uk")	
 
 Start-AzureRmAutomationRunbook -Name "RbGenerateVMSnapshotReport" `
- -AutomationAccountName "OMSAutomation" -RunOn "HybridRunbookWorkersGroup" -ResourceGroupName "SSOMS"
+ -AutomationAccountName "OMSAutomation" -RunOn "HybridRunbookWorkersGroup" -ResourceGroupName "SSOMS" -Wait $true
 	
 Start-AzureRmAutomationRunbook -Name "Send-MailMessage" `
  -Parameters @{"To"=$recips; "CC"=$CC; "From"="svc_OrchSrvAcc@silversands.co.uk"; "Server"="silversmtp.silversands.co.uk"; "Subject"=$subject; "Body"=$body; "AttachmentPaths"=$attachments} `
