@@ -33,11 +33,24 @@ $attachments = @("D:\VmwareSnapshotReport\snapshot_Query.csv")
 
 $CC = @("jamie.sayer@silversands.co.uk")	
 
-Start-AzureRmAutomationRunbook -Name "RbGenerateVMSnapshotReport" `
- -AutomationAccountName "OMSAutomation" -RunOn "HybridRunbookWorkersGroup" -ResourceGroupName "SSOMS" -Wait $true
+$jobId = (Start-AzureRmAutomationRunbook -Name "RbGenerateVMSnapshotReport" -AutomationAccountName "OMSAutomation" -RunOn "HybridRunbookWorkersGroup" -ResourceGroupName "SSOMS").JobID
+
+do {
+if($Status -ne $null)
+{
+“Job not complete – Status: $Status – Sleeping”
+Start-Sleep -Seconds 2
+}
+$Status = Get-AzureRMAutomationJob -Id $jobId -ResourceGroupName "SSOMS" -AutomationAccountName "OMSAutomation" | Select-Object -ExpandProperty Status
+} while (($status -ne “Completed”) -and ($status -ne “Failed”) -and ($status -ne “Suspended”) -and ($status -ne “Stopped”) )
+
+if($status -eq “Completed”)
+{
+	Start-AzureRmAutomationRunbook -Name "Send-MailMessage" `
+	 -Parameters @{"To"=$recips; "CC"=$CC; "From"="svc_OrchSrvAcc@silversands.co.uk"; "Server"="silversmtp.silversands.co.uk"; "Subject"=$subject; "Body"=$body; "AttachmentPaths"=$attachments} `
+	 -AutomationAccountName "OMSAutomation" -RunOn "HybridRunbookWorkersGroup" -ResourceGroupName "SSOMS"
+		 
+}
 	
-Start-AzureRmAutomationRunbook -Name "Send-MailMessage" `
- -Parameters @{"To"=$recips; "CC"=$CC; "From"="svc_OrchSrvAcc@silversands.co.uk"; "Server"="silversmtp.silversands.co.uk"; "Subject"=$subject; "Body"=$body; "AttachmentPaths"=$attachments} `
- -AutomationAccountName "OMSAutomation" -RunOn "HybridRunbookWorkersGroup" -ResourceGroupName "SSOMS"
-	 
+
 	 
