@@ -25,13 +25,13 @@ catch {
 "Logged in."
 	
 Set-AzureRmContext -SubscriptionId $servicePrincipalConnection.SubscriptionId
-# $recips = @("team-projects@silversands.co.uk", "team-infrastructure@silversands.co.uk", "Team-Sharepoint&Development@silversands.co.uk")
-$recips = @("jamie.sayer@silversands.co.uk")
+
+$recips = @("adrian.coombes@silversands.co.uk","martin.barringer@silversands.co.uk")
 $subject = "Vmware Snapshot Report"
 $body = "Weekly VMware snapshot report."
 $attachments = @("D:\VmwareSnapshotReport\snapshot_Query.csv")
 
-$CC = @("jamie.sayer@silversands.co.uk")	
+$CC = @("simon.robinson@silversands.co.uk","andy.petty@silversands.co.uk","steve.ianson@silversands.co.uk","jamie.stockton@silversands.co.uk")	
 
 $jobId = (Start-AzureRmAutomationRunbook -Name "RbGenerateVMSnapshotReport" -AutomationAccountName "OMSAutomation" -RunOn "HybridRunbookWorkersGroup" -ResourceGroupName "SSOMS").JobID
 
