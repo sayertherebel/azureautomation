@@ -25,7 +25,8 @@ catch {
 "Logged in."
 	
 Set-AzureRmContext -SubscriptionId $servicePrincipalConnection.SubscriptionId
-$recips = @("team-projects@silversands.co.uk", "team-infrastructure@silversands.co.uk", "Team-Sharepoint&Development@silversands.co.uk")
+# $recips = @("team-projects@silversands.co.uk", "team-infrastructure@silversands.co.uk", "Team-Sharepoint&Development@silversands.co.uk")
+$recips = @("team-projects@silversands.co.uk","team-infrastructure@silversands.co.uk","Team-Sharepoint&Development@silversands.co.uk")
 $subject = "IMPORTANT Timesheet reminder"
 $body = @"
 All
@@ -40,7 +41,8 @@ Thanks
 
 
 Simon
-"@
+"@	
+$attachments = @("D:\VmwareSnapshotReport\snapshot_Query.csv")
 
 $CC = @("andy.petty@silversands.co.uk","james.mallalieu@silversands.co.uk")	
 
