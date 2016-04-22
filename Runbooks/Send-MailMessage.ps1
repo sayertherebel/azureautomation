@@ -19,7 +19,7 @@
 param (
 	[parameter(Mandatory = $true)]
 	[string[]]$To,
-	[parameter(Mandatory = $false)]
+	[parameter(Mandatory = $true)]
 	[string[]]$CC,
 	[parameter(Mandatory = $true)]
 	[string]$From,
@@ -34,7 +34,14 @@ param (
 
 )
 	
-		
-Send-MailMessage -To $To -Subject $Subject -Body $Body -SmtpServer $Server -From $From -CC $CC -Attachments $AttachmentPaths
+if ($AttachmentPaths -ne $null)
+{		
+	Send-MailMessage -To $To -Subject $Subject -Body $Body -SmtpServer $Server -From $From -CC $CC -Attachments $AttachmentPaths
+}
+else
+{
+	Send-MailMessage -To $To -Subject $Subject -Body $Body -SmtpServer $Server -From $From -CC $CC
+}
+
    		
 		
