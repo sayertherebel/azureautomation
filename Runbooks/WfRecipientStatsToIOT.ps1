@@ -14,6 +14,6 @@ workflow WfRecipientStatsToIOT
 			CheckPoint-Workflow
 		}
 		
-        Push-IoTEvent -strConn "HostName=IotHubRecipientStats.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=SCwNpfWZaAgJTT1IMPRuvMpXon6cGKWFFZlqyM+thOc=" -strIOTDevice "TestTwo" -strHubURI IotHubRecipientStats.azure-devices.net -objDatagram @{"ReceivedDate"=$message.ReceivedDate;"SenderAddress"=$message.SenderAddress;"RecipientAddress"=$message.RecipientAddress;"Direction"=$message.direction} -aSyncSend
+        Push-IoTEvent -strConn "HostName=IotHubRecipientStats.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=SCwNpfWZaAgJTT1IMPRuvMpXon6cGKWFFZlqyM+thOc=" -strIOTDevice "TestTwo" -strHubURI IotHubRecipientStats.azure-devices.net -objDatagram @{"ReceivedDate"=$message.ReceivedDateTime;"SenderAddress"=$message.SenderAddress;"RecipientAddress"=$message.RecipientAddress;"Direction"=$message.direction} -aSyncSend
 	}
 }
