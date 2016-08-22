@@ -88,7 +88,7 @@ foreach($message in $messages)
 			$strDirection = "Outbound"
 			$strExternalDomain = $message.recipientaddress.split('@')[1]
 		}
-		$results+=@{"ReceivedDateTime"=(Get-Date -date $message.Received -format "yyyy-MM-ddTHH:mm:ssZ");"SenderAddress"=$message.SenderAddress;"RecipientAddress"=$message.RecipientAddress;"Direction"=$direction;"ExternalDomain" = $strExternalDomain}
+		$results+=@{"ReceivedDateTime"=(Get-Date -date $message.Received -format "yyyy-MM-ddTHH:mm:ssZ");"SenderAddress"=$message.SenderAddress;"RecipientAddress"=$message.RecipientAddress;"Direction"=$strDirection;"ExternalDomain" = $strExternalDomain}
 		
 	}
 }
