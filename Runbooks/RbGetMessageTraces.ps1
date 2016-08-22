@@ -78,8 +78,17 @@ foreach($message in $messages)
     if (((-not($message.senderaddress -like "*silversands.co.uk")) -and (-not($message.senderaddress -like "*silversands.onmicrosoft.com")) -and (-not($message.senderaddress -like "*silversands.mail.onmicrosoft.com"))) -xor ((-not($message.recipientaddress -like "*silversands.co.uk")) -and (-not($message.recipientaddress -like "*silversands.onmicrosoft.com"))-and (-not($message.recipientaddress -like "*silversands.mail.onmicrosoft.com"))))
     {
 		# Has external party
-		
-		$results+=@{"ReceivedDateTime"=(Get-Date -date $message.Received -format "yyyy-MM-ddTHH:mm:ssZ");"SenderAddress"=$message.SenderAddress;"RecipientAddress"=$message.RecipientAddress;"Direction"=&{if((-not($message.senderaddress -like "*silversands.co.uk")) -and (-not($message.senderaddress -like "*silversands.onmicrosoft.com")) -and (-not($message.senderaddress -like "*silversands.mail.onmicrosoft.com"))){"Inbound"}else{"Outbound"}}}
+		if((-not($message.senderaddress -like "*silversands.co.uk")) -and (-not($message.senderaddress -like "*silversands.onmicrosoft.com")) -and (-not($message.senderaddress -like "*silversands.mail.onmicrosoft.com")))
+		{
+			$strDirection = "Inbound"
+			$strExternalDomain = $message.senderaddress.split('@')[1]
+		}
+		else
+		{
+			$strDirection = "Outbound"
+			$strExternalDomain = $message.recipientaddress.split('@')[1]
+		}
+		$results+=@{"ReceivedDateTime"=(Get-Date -date $message.Received -format "yyyy-MM-ddTHH:mm:ssZ");"SenderAddress"=$message.SenderAddress;"RecipientAddress"=$message.RecipientAddress;"Direction"=$direction;"ExternalDomain" = $strExternalDomain}
 		
 	}
 }
