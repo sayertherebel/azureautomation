@@ -1,5 +1,5 @@
 Param(  
-    [Parameter(Position=0, Mandatory=$false, ValueFromPipeline=$true)]  
+    [Parameter(Position=0, Mandatory=$true, ValueFromPipeline=$true)]  
     [string] $CredentialObjectName
 )  
 	
@@ -79,7 +79,7 @@ foreach($message in $messages)
     {
 		# Has external party
 		
-		$results+=@{"Received"=$message.Received.ToString(); "SenderAddress"=$message.SenderAddress;"RecipientAddress"=$message.RecipientAddress;"Direction"=&{if((-not($message.senderaddress -like "*silversands.co.uk")) -and (-not($message.senderaddress -like "*silversands.onmicrosoft.com")) -and (-not($message.senderaddress -like "*silversands.mail.onmicrosoft.com"))){"Inbound"}else{"Outbound"}}}
+		$results+=@{"ReceivedDateTime"=(Get-Date -date $message.Received -format "yyyy-MM-ddTHH:mm:ssZ");"SenderAddress"=$message.SenderAddress;"RecipientAddress"=$message.RecipientAddress;"Direction"=&{if((-not($message.senderaddress -like "*silversands.co.uk")) -and (-not($message.senderaddress -like "*silversands.onmicrosoft.com")) -and (-not($message.senderaddress -like "*silversands.mail.onmicrosoft.com"))){"Inbound"}else{"Outbound"}}}
 		
 	}
 }
